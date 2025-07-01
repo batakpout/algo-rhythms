@@ -1,7 +1,13 @@
 package outside_leetcode.sorting;
 
 import java.util.Scanner;
-
+/**
+ * Divide and conquer algorithm(divide, conquer and merge), it is stable algorithm (maintains original order of equal elements)
+ * O(n log n) time complexity on a single processor for a random input, takes O(n) extra space, so not an in-place sorting algorithm.
+   (some variants e.g blocked merge sort used constant space)
+ * for arrays, in general, quick sort works better than the merge sort
+ * most libraries e.g java 8, python uses merge sort or tim-sort(merge+insertion sort)
+ */
 public class MergeSort {
 
     public static void merge(int[] arr, int low, int mid, int high) {
