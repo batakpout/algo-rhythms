@@ -2,6 +2,7 @@ package outside_leetcode.sorting;
 
 import java.util.Scanner;
 
+// Merge two sorted arrays
 public class MergeTwoArrays {
     public static int[] merge(int[] arr1, int[] arr2) {
         int n = arr1.length;
