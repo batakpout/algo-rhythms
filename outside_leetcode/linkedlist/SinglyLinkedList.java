@@ -277,21 +277,21 @@ public class SinglyLinkedList {
         ListNode head1 = list1.head;
         ListNode head2 = list2.head;
         SinglyLinkedList newList = new SinglyLinkedList();
-        while(head1 != null && head2 != null) {
-            if(head1.data < head2.data) {
+        while (head1 != null && head2 != null) {
+            if (head1.data < head2.data) {
                 newList.pushBack(head1.data);
                 head1 = head1.next;
-            }else {
+            } else {
                 newList.pushBack(head2.data);
                 head2 = head2.next;
             }
         }
-        while(head1 != null) {
+        while (head1 != null) {
             newList.pushBack(head1.data);
             head1 = head1.next;
         }
 
-        while(head2 != null) {
+        while (head2 != null) {
             newList.pushBack(head2.data);
             head2 = head2.next;
         }
@@ -299,11 +299,11 @@ public class SinglyLinkedList {
     }
 
     public ListNode mergeSortedNodesRecursive(ListNode node1, ListNode node2) {
-        if(node1 == null) return node2;
-        if(node2 == null) return node1;
+        if (node1 == null) return node2;
+        if (node2 == null) return node1;
 
         ListNode res;
-        if(node1.data < node2.data) {
+        if (node1.data < node2.data) {
             res = node1;
             res.next = mergeSortedNodesRecursive(node1.next, node2);
         } else {
@@ -313,6 +313,48 @@ public class SinglyLinkedList {
         return res;
     }
 
+    //using runner technique
+    //1->2->3->4->5->6->7->8
+    //1->2->3->4->5->6->7->8->9
+    public int middleElement() {
+        ListNode slowPointer = head;
+        ListNode fastPointer = head;
+        while (fastPointer.next != null && fastPointer.next.next != null) {
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
+        }
+        System.out.println(slowPointer.data);
+
+        return -1;
+    }
+
+    // Kth Last Element (Single Pass)
+    // Return the Kth last element of a linked list using two pointers.
+    // Assumption: K ≤ length of the list.
+    // Example: For 1→2→3→4→5→6→7 and K=3 → Output: 5
+    //using runner technique
+    int kthLastElement(int k) {
+        ListNode slowPointer = head;
+        ListNode fastPointer = head;
+        int count = 0;
+        //keep k step gap between the slow and fast pointe
+        while (count < k) {
+            fastPointer = fastPointer.next;
+            count++;
+        }
+
+        //now move fast and slow pointer, once fast reaches null, slower will
+        // be k steps away from fast pointer
+        while (fastPointer != null) {
+            fastPointer = fastPointer.next;
+            slowPointer = slowPointer.next;
+        }
+
+        assert slowPointer != null;
+        return slowPointer.data;
+
+
+    }
 
     /*
       Kth Last Element
@@ -336,7 +378,7 @@ public class SinglyLinkedList {
 
     public static void print(ListNode head) {
         ListNode curr = head;
-        while(curr != null) {
+        while (curr != null) {
             System.out.print(curr.data + "-->");
             curr = curr.next;
         }
@@ -405,7 +447,26 @@ public class SinglyLinkedList {
         list2.display();
 
         //SinglyLinkedList list3 = list.mergeSortedNodes(list1, list2);
+        System.out.println("Merging two lists output: ");
         ListNode merged = list.mergeSortedNodesRecursive(list1.head, list2.head);
         print(merged);
+
+        System.out.println("Middle element of list: ");
+        SinglyLinkedList newList = new SinglyLinkedList();
+        newList.pushBack(1);
+        newList.pushBack(2);
+        newList.pushBack(3);
+        newList.pushBack(4);
+        newList.pushBack(5);
+        newList.pushBack(6);
+        newList.pushBack(7);
+        newList.pushBack(8);
+        newList.pushBack(9);
+        newList.display();
+        //1->2->3->4->5->6->7->8
+        newList.middleElement();
+        System.out.println("kth element of list:");
+        int r = newList.kthLastElement(4);
+        System.out.println(r);
     }
 }
