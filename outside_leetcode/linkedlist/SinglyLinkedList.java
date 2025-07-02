@@ -352,29 +352,52 @@ public class SinglyLinkedList {
 
         assert slowPointer != null;
         return slowPointer.data;
+    }
 
+    int kthLastElementNaive(int k) {
+        int cnt = 0;
+        ListNode curr = head;
+        while (curr != null) {
+            cnt++;
+            curr = curr.next;
+        }
+        curr = head;
+        for (int i = 0; i < cnt - k; i++) {
+            curr = curr.next;
+        }
+        return curr.data;
+    }
+
+    public SinglyLinkedList alternativeMerge(SinglyLinkedList list1, SinglyLinkedList list2) {
+
+        ListNode head1 = list1.head;
+        ListNode head2 = list2.head;
+        SinglyLinkedList newList = new SinglyLinkedList();
+        int c = 0;
+        while (head1 != null && head2 != null) {
+            if (c % 2 == 0) {
+                newList.pushBack(head1.data);
+                head1 = head1.next;
+            } else {
+                newList.pushBack(head2.data);
+                head2 = head2.next;
+            }
+            c++;
+        }
+
+        while (head1 != null) {
+            newList.pushBack(head1.data);
+            head1 = head1.next;
+        }
+
+        while (head2 != null) {
+            newList.pushBack(head2.data);
+            head2 = head2.next;
+        }
+        return newList;
 
     }
 
-    /*
-      Kth Last Element
-
-      Implement a function that returns the Kth last of element from the linked list, in a single pass.
-      You can assume K will be less than / equal to length of linked list.
-      (Hint : Use two pointers similar to Runner Technique)
-
-      Input
-
-      You will get head of the linked list.
-
-        1 -> 2 -> 3 -> 4 -> 5 ->6 ->7 K = 3 Output 5
-
-    Explanation:
-    Third last element is 5.
-     */
-  /*  public int kthLastElement() {
-
-    }*/
 
     public static void print(ListNode head) {
         ListNode curr = head;
@@ -468,5 +491,24 @@ public class SinglyLinkedList {
         System.out.println("kth element of list:");
         int r = newList.kthLastElement(4);
         System.out.println(r);
+
+        SinglyLinkedList mList1 = new SinglyLinkedList();
+        mList1.pushBack(5);
+        mList1.pushBack(7);
+        mList1.pushBack(17);
+        mList1.pushBack(13);
+        mList1.pushBack(11);
+        SinglyLinkedList mList2 = new SinglyLinkedList();
+        mList2.pushBack(12);
+        mList2.pushBack(10);
+        mList2.pushBack(2);
+        mList2.pushBack(4);
+        mList2.pushBack(6);
+        System.out.println("Displaying list1, list2:");
+        mList1.display();
+        mList2.display();
+        System.out.println("Alternative merge");
+        SinglyLinkedList altMerged = list.alternativeMerge(mList1, mList2);
+        altMerged.display();
     }
 }
