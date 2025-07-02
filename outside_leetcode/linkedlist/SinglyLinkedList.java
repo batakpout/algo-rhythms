@@ -373,16 +373,11 @@ public class SinglyLinkedList {
         ListNode head1 = list1.head;
         ListNode head2 = list2.head;
         SinglyLinkedList newList = new SinglyLinkedList();
-        int c = 0;
         while (head1 != null && head2 != null) {
-            if (c % 2 == 0) {
                 newList.pushBack(head1.data);
                 head1 = head1.next;
-            } else {
                 newList.pushBack(head2.data);
                 head2 = head2.next;
-            }
-            c++;
         }
 
         while (head1 != null) {
@@ -398,6 +393,33 @@ public class SinglyLinkedList {
 
     }
 
+    public void bubbleSort() {
+        ListNode curr = head;
+
+        //calculate size of the list
+        int n=0;
+        while(curr != null) {
+            n++;
+            curr = curr.next;
+        }
+
+        int temp;
+        boolean swapped;
+        for(int i=0;i<n-1;i++) {
+            swapped = false;
+            curr = head;
+            for(int j=0;j<n-i-1;j++) {
+                if(curr.data > curr.next.data) {
+                    temp = curr.data;
+                    curr.data = curr.next.data;
+                    curr.next.data = temp;
+                    swapped = true;
+                }
+                curr = curr.next;
+            }
+            if(!swapped) break;
+        }
+    }
 
     public static void print(ListNode head) {
         ListNode curr = head;
@@ -510,5 +532,9 @@ public class SinglyLinkedList {
         System.out.println("Alternative merge");
         SinglyLinkedList altMerged = list.alternativeMerge(mList1, mList2);
         altMerged.display();
+        System.out.println("Bubble sort:");
+        altMerged.bubbleSort();
+        altMerged.display();
+
     }
 }
