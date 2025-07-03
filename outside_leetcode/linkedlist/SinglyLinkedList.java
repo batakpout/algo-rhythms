@@ -298,7 +298,7 @@ public class SinglyLinkedList {
         return newList;
     }
 
-    public ListNode mergeSortedNodesRecursive(ListNode node1, ListNode node2) {
+    public static ListNode mergeSortedNodesRecursive(ListNode node1, ListNode node2) {
         if (node1 == null) return node2;
         if (node2 == null) return node1;
 
@@ -374,10 +374,10 @@ public class SinglyLinkedList {
         ListNode head2 = list2.head;
         SinglyLinkedList newList = new SinglyLinkedList();
         while (head1 != null && head2 != null) {
-                newList.pushBack(head1.data);
-                head1 = head1.next;
-                newList.pushBack(head2.data);
-                head2 = head2.next;
+            newList.pushBack(head1.data);
+            head1 = head1.next;
+            newList.pushBack(head2.data);
+            head2 = head2.next;
         }
 
         while (head1 != null) {
@@ -397,19 +397,19 @@ public class SinglyLinkedList {
         ListNode curr = head;
 
         //calculate size of the list
-        int n=0;
-        while(curr != null) {
+        int n = 0;
+        while (curr != null) {
             n++;
             curr = curr.next;
         }
 
         int temp;
         boolean swapped;
-        for(int i=0;i<n-1;i++) {
+        for (int i = 0; i < n - 1; i++) {
             swapped = false;
             curr = head;
-            for(int j=0;j<n-i-1;j++) {
-                if(curr.data > curr.next.data) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (curr.data > curr.next.data) {
                     temp = curr.data;
                     curr.data = curr.next.data;
                     curr.next.data = temp;
@@ -417,7 +417,7 @@ public class SinglyLinkedList {
                 }
                 curr = curr.next;
             }
-            if(!swapped) break;
+            if (!swapped) break;
         }
     }
 
@@ -428,6 +428,27 @@ public class SinglyLinkedList {
             curr = curr.next;
         }
         System.out.println("NULL");
+    }
+
+    public static ListNode findMidPoint(ListNode curr) {
+        ListNode slowPointer = curr;
+        ListNode fastPointer = curr.next;
+        while (fastPointer != null && fastPointer.next != null) {
+            slowPointer = slowPointer.next;
+            fastPointer = fastPointer.next.next;
+        }
+        return slowPointer;
+    }
+
+    public static ListNode mergeSort(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode mid = findMidPoint(head);
+        ListNode a = head;
+        ListNode b = mid.next;
+        mid.next = null;
+        a = mergeSort(a);
+        b = mergeSort(b);
+        return mergeSortedNodesRecursive(a, b);
     }
 
     public static void main(String[] args) {
@@ -493,7 +514,7 @@ public class SinglyLinkedList {
 
         //SinglyLinkedList list3 = list.mergeSortedNodes(list1, list2);
         System.out.println("Merging two lists output: ");
-        ListNode merged = list.mergeSortedNodesRecursive(list1.head, list2.head);
+        ListNode merged = mergeSortedNodesRecursive(list1.head, list2.head);
         print(merged);
 
         System.out.println("Middle element of list: ");
@@ -532,9 +553,12 @@ public class SinglyLinkedList {
         System.out.println("Alternative merge");
         SinglyLinkedList altMerged = list.alternativeMerge(mList1, mList2);
         altMerged.display();
-        System.out.println("Bubble sort:");
-        altMerged.bubbleSort();
-        altMerged.display();
+        //System.out.println("Bubble sort:");
+       // altMerged.bubbleSort();
+       // altMerged.display();
 
+        System.out.println("Merge sort:");
+        ListNode newHead = mergeSort(altMerged.head);
+        print(newHead);
     }
 }
