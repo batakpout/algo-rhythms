@@ -27,7 +27,7 @@ public class TwoSum {
     public static int[] usingNestedLoop(int[] arr, int target) {
         for (int i = 0; i < arr.length; i++) {
             for (int j = i + 1; j < arr.length; j++) {
-                if (arr[i] == arr[j]) {
+                if (arr[i] + arr[j] == target) {
                     return new int[]{i, j};
                 }
             }
@@ -55,7 +55,7 @@ public class TwoSum {
         Arrays.sort(arr);
         for(int i=0;i<arr.length;i++) {
             int complement = target - arr[i];
-            if(binarySearch(arr, i + 1, arr.length, complement)) return true;
+            if(binarySearch(arr, i + 1, arr.length - 1, complement)) return true;
         }
         return false;
     }
@@ -73,7 +73,7 @@ public class TwoSum {
             int sum = arr[left] + arr[right];
             if(sum == target) return true;
             else if(sum > target) right--;
-            else right++;
+            else left++;
         }
         return false;
     }
