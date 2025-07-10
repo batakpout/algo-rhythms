@@ -2,6 +2,9 @@ package outside_leetcode.arrays;
 
 public class PrintPairs {
 
+    /*
+       n*(n-1) / 2 pairs
+     */
     public static void printPairs(int [] arr) {
         int n = arr.length;
         for(int i=0;i<n;i++) {
