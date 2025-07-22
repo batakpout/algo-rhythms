@@ -5,7 +5,7 @@ import java.util.Stack;
 public class InbuildStack {
     public static void main(String[] args) {
         Stack<String> stk = new Stack<>();
-        stk.add("Can't hurt me");
+        stk.push("Can't hurt me");
         stk.add("Atomic habits");
         stk.add("Ikigai");
 

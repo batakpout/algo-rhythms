@@ -16,6 +16,7 @@ public class RecursiveReverseStack {
         return;
     }
 
+    //O(N^2)
     public static void reverse(Stack<Integer> stk) {
         if(stk.isEmpty()) {
             return;
@@ -25,6 +26,7 @@ public class RecursiveReverseStack {
         reverse(stk);
         insertAtBottom(stk, t);
     }
+
     public static void main(String[] args) {
         Stack<Integer> stk = new Stack<>();
         stk.push(1);
